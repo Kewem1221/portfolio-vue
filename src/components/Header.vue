@@ -53,7 +53,6 @@ export default {
           (classname) => classname !== "add-bg"
         );
       }
-      console.log("XXX");
     },
   },
 

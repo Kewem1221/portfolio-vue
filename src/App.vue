@@ -3,6 +3,7 @@
   <main>
     <Home />
     <Skills />
+    <Projects />
     <Awards />
   </main>
   <Footer />
@@ -13,6 +14,7 @@
 import Header from "./components/Header.vue";
 import Home from "./components/Home.vue";
 import Skills from "./components/Skills.vue";
+import Projects from "./components/Projects.vue";
 import Awards from "./components/Awards.vue";
 import Footer from "./components/Footer.vue";
 
@@ -21,22 +23,23 @@ export default {
 
   data() {
     return {
-      darkTheme: false
-    }
+      darkTheme: false,
+    };
   },
 
   components: {
     Header,
     Home,
     Skills,
+    Projects,
     Footer,
     Awards,
   },
 
   methods: {
     changeTheme() {
-      document.querySelector("body").classList.toggle("dark-theme")
-      this.darkTheme = !this.darkTheme
+      document.querySelector("body").classList.toggle("dark-theme");
+      this.darkTheme = !this.darkTheme;
     },
   },
 };
