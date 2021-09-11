@@ -1,6 +1,11 @@
 <template>
-  <div class="slide">
-    <img class="slide-img" :src="projectImg" :alt="projectImg" />
+  <div :class="[{'scale': dragging}, 'slide']">
+    <img
+      class="slide-img"
+      :src="projectImg"
+      :alt="projectImg"
+      @dragstart="disableDrag($event)"
+    />
     <h3 class="slide-title">{{ projectName }}</h3>
     <p class="slide-info">{{ projectInfo }}</p>
     <a class="slide-btn" :href="projectLink">{{ btnText }}</a>
@@ -17,6 +22,13 @@ export default {
     projectInfo: String,
     projectLink: String,
     btnText: String,
+    dragging: Boolean,
+  },
+
+  methods: {
+    disableDrag(e) {
+      if (e) e.preventDefault();
+    },
   },
 };
 </script>

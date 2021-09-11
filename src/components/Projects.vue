@@ -1,7 +1,13 @@
 <template>
   <section class="projects" id="projects">
     <h2><i class="uil uil-window"></i>项目</h2>
-    <div class="slider">
+    <div
+      class="slider"
+      :style="style"
+      @mousedown="touchStart($event)"
+      @mouseup="touchEnd($event)"
+      @mouseleave="touchEnd($event)"
+    >
       <Project
         v-for="project in projects"
         :key="project.name"
@@ -10,6 +16,7 @@
         :projectInfo="project.info"
         :projectLink="project.link"
         :btnText="project.btnText"
+        :dragging="dragging"
       />
     </div>
     <div class="pagination"></div>
@@ -47,11 +54,64 @@ export default {
           btnText: "查看 GitHub repo",
         },
       ],
+      dragStartX: 0,
+      slideIndex: 0,
+      dragging: false,
+      style: { transform: "translateX(0px)" },
     };
   },
 
   components: {
     Project,
+  },
+
+  methods: {
+    touchStart(e) {
+      this.dragging = true;
+      this.dragStartX = this.getPositionX(e);
+    },
+
+    touchEnd(e) {
+      this.dragging = false;
+      const dragDistance = this.getPositionX(e) - this.dragStartX;
+
+      if (dragDistance < -100 && this.slideIndex < this.numProjects - 1) {
+        this.slideIndex += 1;
+      }
+      if (dragDistance > 100 && this.slideIndex > 0) {
+        this.slideIndex -= 1;
+      }
+    },
+
+    getPositionX(e) {
+      return e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+    },
+
+    setSlideByIdx(idx) {
+      const translateX = -idx * window.innerWidth;
+      this.style.transform = `translateX(${translateX}px)`;
+    },
+  },
+
+  watch: {
+    slideIndex(newValue) {
+      this.setSlideByIdx(newValue);
+    },
+  },
+
+  computed: {
+    numProjects() {
+      return this.projects.length;
+    },
+  },
+
+  mounted() {
+    // Prevent images from being dragged
+    document.querySelectorAll(".slide-img").forEach((img) => {
+      img.addEventListener("dragstart", (e) => {
+        e.preventDefault();
+      });
+    });
   },
 };
 </script>
@@ -64,7 +124,7 @@ export default {
 .slider {
   display: inline-flex;
   margin: 0.5rem 0;
-  transform: translateX(0);
+  /* transform: translateX(0); */
   transition: transform 0.3s ease-in-out;
 }
 

@@ -15,10 +15,12 @@
         </button>
       </div>
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#skills">技能</a></li>
-        <li><a href="#projects">项目</a></li>
-        <li><a href="#awards">荣誉&证书</a></li>
+        <li><a href="#home" @click="handleLinkClick($event)">Home</a></li>
+        <li><a href="#skills" @click="handleLinkClick($event)">技能</a></li>
+        <li><a href="#projects" @click="handleLinkClick($event)">项目</a></li>
+        <li>
+          <a href="#awards" @click="handleLinkClick($event)">荣誉&证书</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -54,10 +56,17 @@ export default {
         );
       }
     },
+
+    handleLinkClick(e) {
+      e.preventDefault();
+      const targetId = e.target.getAttribute("href").slice(1);
+      const targetOffsetTop = document.getElementById(targetId).offsetTop;
+      window.scrollTo({ left: 0, top: targetOffsetTop - 64 });
+    },
   },
 
   mounted() {
-    window.addEventListener("scroll", throttle(this.handleWinScroll));
+    window.addEventListener("scroll", throttle(this.handleWinScroll, 500));
   },
 };
 </script>
