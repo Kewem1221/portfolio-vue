@@ -6,7 +6,6 @@
       :style="style"
       @mousedown="touchStart($event)"
       @mouseup="touchEnd($event)"
-      @mouseleave="touchEnd($event)"
     >
       <Project
         v-for="project in projects"
@@ -19,12 +18,18 @@
         :dragging="dragging"
       />
     </div>
-    <div class="pagination"></div>
+    <ProjBullets
+      :numProj="numProjects"
+      @changeSlide="handleChangeSlide"
+      :slideIndex="slideIndex"
+    />
   </section>
 </template>
 
 <script>
 import Project from "./Project.vue";
+import ProjBullets from "./ProjBullets.vue";
+// import { throttle } from "../main.js";
 
 export default {
   name: "Projects",
@@ -63,6 +68,7 @@ export default {
 
   components: {
     Project,
+    ProjBullets,
   },
 
   methods: {
@@ -88,8 +94,13 @@ export default {
     },
 
     setSlideByIdx(idx) {
-      const translateX = -idx * window.innerWidth;
-      this.style.transform = `translateX(${translateX}px)`;
+      if (idx === undefined) idx = this.slideIndex;
+      const translateX = -idx * 100 / this.numProjects;
+      this.style.transform = `translateX(${translateX}%)`;
+    },
+
+    handleChangeSlide(idx) {
+      this.slideIndex = idx;
     },
   },
 
