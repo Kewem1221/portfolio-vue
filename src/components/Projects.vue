@@ -6,6 +6,8 @@
       :style="style"
       @mousedown="touchStart($event)"
       @mouseup="touchEnd($event)"
+      @touchstart="touchStart($event)"
+      @touchend="touchEnd($event)"
     >
       <Project
         v-for="project in projects"
@@ -90,7 +92,7 @@ export default {
     },
 
     getPositionX(e) {
-      return e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+      return e.type.includes("mouse") ? e.pageX : e.changedTouches[0].pageX;
     },
 
     setSlideByIdx(idx) {
