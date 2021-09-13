@@ -14,7 +14,7 @@
           <i v-else class="uil uil-moon"></i>
         </button>
       </div>
-      <ul class="nav-links">
+      <ul :class="['nav-links', {'show-nav-links': showNavLinks}]">
         <li><a href="#home" @click="handleLinkClick($event)">Home</a></li>
         <li><a href="#skills" @click="handleLinkClick($event)">技能</a></li>
         <li><a href="#projects" @click="handleLinkClick($event)">项目</a></li>
@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       navClassList: ["nav-center"],
+      showNavLinks: false,
     };
   },
 
@@ -44,7 +45,7 @@ export default {
 
   methods: {
     showMenu() {
-      document.querySelector(".nav-links").classList.toggle("show-nav-links");
+      this.showNavLinks = !this.showNavLinks;
     },
 
     handleWinScroll() {
@@ -62,6 +63,7 @@ export default {
       const targetId = e.target.getAttribute("href").slice(1);
       const targetOffsetTop = document.getElementById(targetId).offsetTop;
       window.scrollTo({ left: 0, top: targetOffsetTop - 64 });
+      this.showNavLinks = false;
     },
   },
 
