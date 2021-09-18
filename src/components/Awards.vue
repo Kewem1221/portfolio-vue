@@ -13,7 +13,7 @@
         v1.0
       </li>
       <li>上海市高等学校信息技术水平考试证书 二级Python程序设计（成绩优秀）</li>
-      <li>CET-6 大学英语六级</li>
+      <li>CET-6 大学英语六级 (大一过)</li>
     </ul>
   </section>
 </template>

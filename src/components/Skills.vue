@@ -9,7 +9,7 @@
       </li>
       <li>
         <span class="item-bullet"></span>
-        熟悉React框架，了解AJAX。
+        了解Vue、React框架，了解AJAX。
       </li>
       <li>
         <span class="item-bullet"></span>
